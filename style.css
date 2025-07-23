@@ -1,0 +1,24 @@
+
+
+header {
+  background: url('/images/hero.jpg') no-repeat center center/cover;
+  color: white;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+h1, h2, h3, .section-heading {
+  font-family: 'Playfair Display', serif;
+}
+

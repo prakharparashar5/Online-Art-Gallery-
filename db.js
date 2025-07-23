@@ -1,0 +1,14 @@
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./arthub.db');
+
+db.run(`
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE,
+    email TEXT UNIQUE,
+    password_hash TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+
+module.exports = db; 

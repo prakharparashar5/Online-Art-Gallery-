@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Art Types - Art Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Boxicons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Open+Sans&display=swap" rel="stylesheet">
+
+  
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .card:hover {
+      transform: scale(1.02);
+      transition: transform 0.3s ease;
+    }
+
+    .card .btn i {
+      margin-right: 4px;
+      transition: transform 0.3s ease;
+    }
+
+    .card .btn:hover i {
+      transform: scale(1.2);
+    }
+
+    .bx {
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">ArtHub</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="art-type.html">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li>
+          <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+        </ul>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- Art Types -->
+  <section class="container py-5">
+    <h2 class="text-center mb-4">Browse Gallery</h2>
+    <div class="text-center mb-4">
+      <button class="btn btn-outline-primary m-2" onclick="filterArt('all')">All</button>
+      <button class="btn btn-outline-primary m-2" onclick="filterArt('Painting')">Painting</button>
+      <button class="btn btn-outline-primary m-2" onclick="filterArt('Sculpture')">Sculpture</button>
+      <button class="btn btn-outline-primary m-2" onclick="filterArt('Photography')">Photography</button>
+      <button class="btn btn-outline-primary m-2" onclick="filterArt('Sketching')">Sketching</button>
+      <button class="btn btn-outline-primary m-2" onclick="filterArt('Digital Art')">Digital Art</button>
+      <button class="btn btn-outline-primary m-2" onclick="filterArt('Calligraphy')">Calligraphy</button>
+      <button class="btn btn-outline-primary m-2" onclick="filterArt('Abstract')">Abstract</button>
+    </div>
+
+    <div class="row" id="artProducts">
+      <!-- Art Cards Will Be Injected Here by JS -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3">
+    <p class="mb-0">© 2025 Art Gallery. All rights reserved.</p>
+  </footer>
+
+  <!-- JS -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    const artData = [
+      {title: "Flowers Painting", img: "images/art1.jpg", type: "Painting", desc: "A colorful floral artwork that celebrates nature's beauty.", price: 150},
+      {title: "Sifaka Lemur", img: "images/art2.jpg", type: "Sculpture", desc: "A detailed sculpture of the rare Sifaka Lemur.", price: 250},
+      {title: "Thrasher Magazine", img: "images/art3.jpg", type: "Painting", desc: "Bold strokes and vibrant colors inspired by youth culture.", price: 120},
+      {title: "Nightwatch Painting", img: "images/art4.jpg", type: "Painting", desc: "A moody masterpiece evoking timeless curiosity.", price: 200},
+      {title: "Seahorse Sculpture", img: "images/art5.jpg", type: "Sculpture", desc: "An intricate sculpture capturing the elegance of a seahorse.", price: 300},
+      {title: "Costa Concordia", img: "images/art6.jpg", type: "Photography", desc: "A powerful photographic moment frozen in time.", price: 180},
+      {title: "City Street Sketch", img: "images/art8.avif", type: "Sketching", desc: "A lifelike pencil portrait showcasing emotion and detail.", price: 70},
+      {title: "Pencil Portrait", img: "images/art9.jpg", type: "Sketching", desc: "Urban sketch capturing the beast.", price: 80},
+      {title: "Cyber World", img: "images/art10.jpg", type: "Digital Art", desc: "A futuristic take on digital landscapes and imagination.", price: 110},
+      {title: "Fantasy Forest", img: "images/art11.jpg", type: "Digital Art", desc: "Mystical creatures and glowing trees inhabit this digital forest.", price: 130},
+      {title: "Arabic Calligraphy", img: "images/art12.jpg", type: "Calligraphy", desc: "Elegant Arabic calligraphy with a spiritual tone.", price: 90},
+      {title: "Inspirational Quote", img: "images/art13.avif", type: "Calligraphy", desc: "Motivational quote beautifully styled with ink and brush.", price: 85},
+      {title: "Color Splash", img: "images/art14.jpg", type: "Abstract", desc: "A vibrant explosion of color and emotion.", price: 140},
+      {title: "Geometric Illusion", img: "images/art15.jpg", type: "Abstract", desc: "Shapes and lines that bend perception and depth.", price: 160}
+    ];
+
+    function displayArt(type) {
+      $('#artProducts').html('');
+      artData.forEach(item => {
+        if (type === 'all' || item.type === type) {
+          $('#artProducts').append(`
+            <div class="col-md-4 mb-4">
+              <div class="card h-100 shadow-sm">
+                <img src="${item.img}" class="card-img-top" alt="${item.title}">
+                <div class="card-body">
+                  <h5 class="card-title">${item.title}</h5>
+                  <p class="card-text"><strong>Type:</strong> ${item.type}</p>
+                  <p class="card-text text-success"><strong>Price:</strong> ${item.price}</p>
+                  <div class="d-flex justify-content-between">
+                    <a href="product-details.html?title=${encodeURIComponent(item.title)}&type=${encodeURIComponent(item.type)}&img=${encodeURIComponent(item.img)}&desc=${encodeURIComponent(item.desc)}&price=${encodeURIComponent(item.price)}" class="btn btn-sm btn-primary">Enquire</a>
+
+
+                      <i class='bx bx-envelope'></i> Enquire
+                    </a>
+                    <a href="shop.html" class="btn btn-sm btn-outline-success">
+                      <i class='bx bx-cart'></i> Go to Shop
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `);
+        }
+      });
+    }
+
+    function filterArt(type) {
+      displayArt(type);
+    }
+
+    $(document).ready(() => {
+      displayArt('all');
+    });
+  </script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
